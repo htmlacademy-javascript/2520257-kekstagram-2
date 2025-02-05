@@ -17,7 +17,7 @@ const checkPalindrome = (str = '') => {
 //второй вариант
 // const isPalindrome = (str) => {
 //   const updStr = str.replaceAll(' ', '').toLowerCase();
-//   const reverseStr = updStr.split('').join('');
+//   const reverseStr = updStr.split('').reverse().join('');
 //   return reverseStr === updStr;
 // };
 //3
@@ -30,7 +30,7 @@ function getInteger(strValue) {
     if (!Number.isNaN(parseInt
     (integerValue[i], 10)
     )) {
-      result += integerValue;
+      result += integerValue[i];
     }
   }
   return result;
