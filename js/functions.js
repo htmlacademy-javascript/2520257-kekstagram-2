@@ -1,6 +1,7 @@
 //1
 
 const checkStringLenght = (str = '', maxLenght = 1) => str.length <= maxLenght;
+checkStringLenght();
 
 //2
 
@@ -13,6 +14,8 @@ const checkPalindrome = (str = '') => {
   }
   return result === updStr;
 };
+
+checkPalindrome();
 
 //второй вариант
 // const isPalindrome = (str) => {
@@ -36,6 +39,7 @@ function getInteger(strValue) {
   return result;
 }
 
+getInteger(678567);
 
 //Быстрое решение от наставника :O
 // function getInteger(strValue) {
