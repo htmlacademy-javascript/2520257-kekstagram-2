@@ -29,7 +29,7 @@ const DESCRIPTIONS = [
   'Вид на что-то'
 ];
 
-const PROFILES_COUNT = 25;
+const PHOTOS_COUNT = 25;
 
 const AvatarCount = {
   MIN: 1,
@@ -59,8 +59,6 @@ const getRandomArrayElement = (elements) => elements[getRandomInteger(0, element
 
 //получение коментариев
 
-const COMMENTS_COUNT = getRandomInteger(Comments.MIN, Comments.MAX);
-
 const generateComments = (index) => ({
   id: index,
   avatar: `img/avatar-${ getRandomInteger(AvatarCount.MIN, AvatarCount.MAX) }.svg`,
@@ -72,7 +70,7 @@ const generateComments = (index) => ({
 const getComments = () => {
   const comments = [];
 
-  for (let i = 0; i <= COMMENTS_COUNT; i++) {
+  for (let i = 0; i <= getRandomInteger(Comments.MIN, Comments.MAX); i++) {
     comments.push(generateComments(i));
   }
 
@@ -81,12 +79,12 @@ const getComments = () => {
 
 //Генерация описаний
 
-const profilesArray = [];
+const photos = [];
 
-const getProfile = () => {
+const getPhotos = () => {
 
-  for (let j = 1; j <= PROFILES_COUNT; j++) {
-    profilesArray.push ({
+  for (let j = 1; j <= PHOTOS_COUNT; j++) {
+    photos.push ({
       id: j,
       url: `photos/${ j }.jpg`,
       description: getRandomArrayElement(DESCRIPTIONS),
@@ -95,9 +93,9 @@ const getProfile = () => {
     });
   }
 
-  return profilesArray;
+  return photos;
 };
 
-getProfile();
+getPhotos();
 
 // const generateProfiles = Array.from({length: PROFILES_COUNT}, getProfile);

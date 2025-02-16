@@ -30,9 +30,7 @@ function getInteger(strValue) {
   let result = '';
 
   for (let i = 0; i < integerValue.length; i++) {
-    if (!Number.isNaN(parseInt
-    (integerValue[i], 10)
-    )) {
+    if (!Number.isNaN(parseInt(integerValue[i], 10))) {
       result += integerValue[i];
     }
   }
