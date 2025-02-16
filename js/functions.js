@@ -1,6 +1,7 @@
 //1
 
 const checkStringLenght = (str = '', maxLenght = 1) => str.length <= maxLenght;
+checkStringLenght();
 
 //2
 
@@ -13,6 +14,8 @@ const checkPalindrome = (str = '') => {
   }
   return result === updStr;
 };
+
+checkPalindrome();
 
 //второй вариант
 // const isPalindrome = (str) => {
@@ -27,15 +30,14 @@ function getInteger(strValue) {
   let result = '';
 
   for (let i = 0; i < integerValue.length; i++) {
-    if (!Number.isNaN(parseInt
-    (integerValue[i], 10)
-    )) {
+    if (!Number.isNaN(parseInt(integerValue[i], 10))) {
       result += integerValue[i];
     }
   }
   return result;
 }
 
+getInteger(678567);
 
 //Быстрое решение от наставника :O
 // function getInteger(strValue) {
