@@ -1,3 +1,8 @@
+// выбор файла с изображением для загрузки;
+
+
+
+
 //1
 
 const checkStringLenght = (str = '', maxLenght = 1) => str.length <= maxLenght;
