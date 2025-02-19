@@ -1,4 +1,4 @@
-import {getRandomArrayElement} from './util.js';
+import { getRandomArrayElement, getRandomInteger } from './util.js';
 
 const COMMENTS = [
   'Всё отлично!',
@@ -52,7 +52,7 @@ const Comments = {
 
 const generateComments = (index) => ({
   id: index,
-  avatar: `img/avatar-${ getRandomInteger(AvatarCount.MIN, AvatarCount.MAX) }.svg`,
+  avatar: `img/avatar-${getRandomInteger(AvatarCount.MIN, AvatarCount.MAX)}.svg`,
   message: getRandomArrayElement(COMMENTS),
   name: getRandomArrayElement(NAMES)
 });
@@ -71,12 +71,12 @@ const getComments = () => {
 //Генерация фото и описаний
 
 const getPhotos = () => {
-    const photos = [];
+  const photos = [];
 
   for (let j = 1; j <= PHOTOS_COUNT; j++) {
-    photos.push ({
+    photos.push({
       id: j,
-      url: `photos/${ j }.jpg`,
+      url: `photos/${j}.jpg`,
       description: getRandomArrayElement(DESCRIPTIONS),
       likes: getRandomInteger(Likes.MIN, Likes.MAX),
       comments: getComments()
@@ -86,6 +86,6 @@ const getPhotos = () => {
   return photos;
 };
 
-export {getPhotos}
+export { getPhotos };
 
 // const generateProfiles = Array.from({length: PROFILES_COUNT}, getProfile);
