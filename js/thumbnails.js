@@ -1,7 +1,8 @@
 import { getPhotos } from './data.js';
+import { getTemplate } from './utils/dom.js';
 
 const picturesList = document.querySelector('.pictures');
-const picturesListTemplate = document.querySelector('#picture').content.querySelector('.picture');
+const picturesListTemplate = getTemplate('#picture');
 const generatePictures = getPhotos();
 const picturesListFragment = document.createDocumentFragment();
 
