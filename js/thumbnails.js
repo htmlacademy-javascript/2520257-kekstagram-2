@@ -20,8 +20,8 @@ generatePictures.forEach(({url, description, likes, comments}) => {
   const newPicture = picturesListTemplate.cloneNode(true);
   newPicture.querySelector('.picture__img').src = url;
   newPicture.querySelector('.picture__img').alt = description;
-  newPicture.querySelector('.picture__comments').src = comments;
-  newPicture.querySelector('.picture__likes').src = likes;
+  newPicture.querySelector('.picture__comments').textContent = comments.length;
+  newPicture.querySelector('.picture__likes').textContent = likes;
   picturesListFragment.appendChild(newPicture);
 });
 
