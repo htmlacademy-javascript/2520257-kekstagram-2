@@ -1,4 +1,4 @@
-import { getRandomArrayElement, getRandomInteger } from './util.js';
+import { getRandomArrayElement, getRandomInteger } from './utils/randomizer.js';
 
 const COMMENTS = [
   'Всё отлично!',
