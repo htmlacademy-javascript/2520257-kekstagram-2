@@ -1,7 +1,7 @@
 import { isEscapeKey } from '../utils/dom.js';
-import { picturesList } from './thumbnails.js';
+import { renderThumbnails, picturesList } from './thumbnails.js';
 import { renderComments } from './render-comments.js';
-import { photos } from '../data';
+
 
 const bigPicture = document.querySelector('.big-picture');
 const bigPictureCancel = bigPicture.querySelector('.big-picture__cancel');
@@ -34,13 +34,12 @@ const closeBigPicture = () => {
   document.removeEventListener('keydown', onDocumentKeydown);
 };
 
-const renderBigPicture = (photoData) => {
+const renderBigPicture = () => {
   picturesList.addEventListener('click', (evt) => {
     const currentThumbnail = evt.target.closest('[data-photo-id]');
-    renderComments(currentThumbnail);
 
     if (currentThumbnail) {
-      currentPhoto = photos.find((photo) => photo.id === Number(photoData));
+      currentPhoto = renderThumbnails.find((photo) => photo.id === currentThumbnail.dataset.photoId);
       renderComments(currentPhoto);
       openBigPicture();
     }
