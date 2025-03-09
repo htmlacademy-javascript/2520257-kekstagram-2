@@ -1,5 +1,3 @@
-//import { photos } from '../data';
-
 const bigPicture = document.querySelector('.big-picture');
 const bigPictureImg = bigPicture.querySelector('.big-picture__img img');
 const bigPictureLikes = bigPicture.querySelector('.likes-count');
@@ -34,4 +32,3 @@ const renderComments = (photo) => {
 };
 
 export { renderComments };
-

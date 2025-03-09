@@ -3,7 +3,7 @@ import { getTemplate } from '../utils/dom.js';
 
 const picturesList = document.querySelector('.pictures');
 const picturesListTemplate = getTemplate('#picture');
-const renderThumbnails = getPhotos();
+const thumbnailsData = getPhotos();
 const picturesListFragment = document.createDocumentFragment();
 
 // без деструктуризации временно для осознания
@@ -11,8 +11,14 @@ const picturesListFragment = document.createDocumentFragment();
 //   const newPicture = picturesListTemplate.cloneNode(true);
 //   newPicture.querySelector('.picture__img').src = picture.url;
 
-renderThumbnails.forEach(({id, url, description, likes, comments}) => {
+// thumbnailsData.forEach(({id, url, description, likes, comments}) => {
+//   const newPicture = picturesListTemplate.cloneNode(true);
+//   newPicture.querySelector('.picture__img').src = url;
+//   newPicture.querySelector('.picture__img').alt = description;
+
+thumbnailsData.forEach(({id, url, description, likes, comments}) => {
   const newPicture = picturesListTemplate.cloneNode(true);
+
   newPicture.querySelector('.picture__img').src = url;
   newPicture.querySelector('.picture__img').alt = description;
   newPicture.setAttribute('data-photo-id', id);
@@ -21,6 +27,17 @@ renderThumbnails.forEach(({id, url, description, likes, comments}) => {
   picturesListFragment.appendChild(newPicture);
 });
 
+// const renderThumbnails = (photos) => {
+//   const picturesListFragment = document.createDocumentFragment();
+
+//   photos.forEach((photo) => {
+//     picturesListFragment.appendChild(thumbnailsData(photo));
+//   });
+
+//   picturesList.appendChild(picturesListFragment);
+
+// };
+
 picturesList.appendChild(picturesListFragment);
 
-export { picturesList, renderThumbnails };
+export { picturesListTemplate, thumbnailsData };
