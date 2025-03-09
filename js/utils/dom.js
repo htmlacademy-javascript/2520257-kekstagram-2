@@ -12,4 +12,6 @@ const getTemplate = (id) => {
   return template.content.firstElementChild;
 };
 
-export { getTemplate };
+const isEscapeKey = (evt) => evt.key === 'Escape';
+
+export { getTemplate, isEscapeKey };

@@ -69,14 +69,14 @@ const getComments = () => {
 };
 
 //Генерация фото и описаний
+const photos = [];
 
 const getPhotos = () => {
-  const photos = [];
 
   for (let j = 1; j <= PHOTOS_COUNT; j++) {
     photos.push({
       id: j,
-      url: `photos/${j}.jpg`,
+      url: `photos/${ j }.jpg`,
       description: getRandomArrayElement(DESCRIPTIONS),
       likes: getRandomInteger(Likes.MIN, Likes.MAX),
       comments: getComments()
@@ -86,6 +86,6 @@ const getPhotos = () => {
   return photos;
 };
 
-export { getPhotos };
+export { getPhotos, photos };
 
 // const generateProfiles = Array.from({length: PROFILES_COUNT}, getProfile);

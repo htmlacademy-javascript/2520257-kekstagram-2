@@ -1,3 +1,2 @@
-import './functions.js';
-import './animations.js';
-import './thumbnails.js';
+import { renderBigPicture } from './pictures/big-pictures.js';
+renderBigPicture();
