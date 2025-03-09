@@ -40,4 +40,4 @@ thumbnailsData.forEach(({id, url, description, likes, comments}) => {
 
 picturesList.appendChild(picturesListFragment);
 
-export { picturesListTemplate, thumbnailsData };
+export { picturesList, thumbnailsData };

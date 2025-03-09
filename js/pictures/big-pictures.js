@@ -1,5 +1,5 @@
 import { isEscapeKey } from '../utils/dom.js';
-import { thumbnailsData, picturesListTemplate } from './thumbnails.js';
+import { thumbnailsData, picturesList } from './thumbnails.js';
 import { renderComments } from './render-comments.js';
 
 const bigPicture = document.querySelector('.big-picture');
@@ -33,7 +33,7 @@ const closeBigPicture = () => {
 };
 
 const renderBigPicture = () => {
-  picturesListTemplate.addEventListener('click', (evt) => {
+  picturesList.addEventListener('click', (evt) => {
     const currentThumbnail = evt.target.closest('[data-photo-id]');
 
     if (currentThumbnail) {
