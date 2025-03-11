@@ -40,7 +40,7 @@ const renderComments = () => {
     socialCommentsLoader.classList.add('hidden');
   } else {
     commentsShown = 0;
-    socialCommentsItem.innerHTML = '';
+    socialCommentsList.innerHTML = '';
     socialCommentsLoader.classList.remove('hidden');
     socialCommentsLoader.removeEventListener('click', renderComments);
   }
