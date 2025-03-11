@@ -34,7 +34,7 @@ const renderComments = () => {
 
   socialCommentsList.appendChild(socialCommentsFragment);
   socialCommentsCount.firstChild.textContent = newCommentsLength;
-  socialCommentsCount.lastChild.textContent = commentsData.length;
+  socialCommentsCount.querySelector('.social__comment-total-count').textContent = commentsData.length;
 
   if (newCommentsLength >= commentsData.length) {
     socialCommentsLoader.classList.add('hidden');
@@ -44,7 +44,8 @@ const renderComments = () => {
     socialCommentsLoader.classList.remove('hidden');
     socialCommentsLoader.removeEventListener('click', renderComments);
   }
-  commentsShown = newCommentsLength;
+  commentsShown += COMMENTS_COUNT;
+  //commentsShown = newCommentsLength;
   //commentsData = photo;
 };
 
