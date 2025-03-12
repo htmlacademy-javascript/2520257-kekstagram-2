@@ -1,9 +1,12 @@
 import { isEscapeKey } from '../utils/dom.js';
 import { thumbnailsData, picturesList } from './thumbnails.js';
-import { renderComments } from './render-comments.js';
+import { showComments, clearComments } from './render-comments.js';
 
 const bigPicture = document.querySelector('.big-picture');
 const bigPictureCancel = bigPicture.querySelector('.big-picture__cancel');
+const bigPictureImg = bigPicture.querySelector('.big-picture__img img');
+const bigPictureLikes = bigPicture.querySelector('.likes-count');
+const socialCaption = bigPicture.querySelector('.social__caption');
 
 const onDocumentKeydown = (evt) => {
   if (isEscapeKey(evt)) {
@@ -24,9 +27,10 @@ const openBigPicture = () => {
   bigPictureCancel.addEventListener('click', onBigPictureClick, {once: true});
 };
 
-let currentPhoto;
+//let currentPhoto;
 
 const closeBigPicture = () => {
+  clearComments();
   bigPicture.classList.add('hidden');
   document.body.classList.remove('modal-open');
   document.removeEventListener('keydown', onDocumentKeydown);
@@ -37,8 +41,14 @@ const renderBigPicture = () => {
     const currentThumbnail = evt.target.closest('[data-photo-id]');
 
     if (currentThumbnail) {
-      currentPhoto = thumbnailsData.find((photo) => photo.id === Number(currentThumbnail.dataset.photoId));
-      renderComments(currentPhoto);
+      const currentPhoto = thumbnailsData.find((photo) => photo.id === Number(currentThumbnail.dataset.photoId));
+
+      bigPictureImg.src = currentPhoto.url;
+      bigPictureLikes.textContent = currentPhoto.likes;
+      socialCaption.textContent = currentPhoto.description;
+
+      showComments(currentPhoto.comments);
+
       openBigPicture();
     }
   });
