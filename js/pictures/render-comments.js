@@ -39,14 +39,18 @@ const renderComments = () => {
   if (newCommentsLength >= commentsData.length) {
     socialCommentsLoader.classList.add('hidden');
   } else {
-    commentsShown = 0;
-    socialCommentsList.innerHTML = '';
-    socialCommentsLoader.classList.remove('hidden');
-    socialCommentsLoader.removeEventListener('click', renderComments);
+    clearComments();
   }
   commentsShown += COMMENTS_COUNT;
   //commentsShown = newCommentsLength;
   //commentsData = photo;
+};
+
+const clearComments = () => {
+  commentsShown = 0;
+  socialCommentsList.innerHTML = '';
+  socialCommentsLoader.classList.remove('hidden');
+  socialCommentsLoader.removeEventListener('click', renderComments);
 };
 
 const showComments = (photoComments) => {
@@ -55,4 +59,4 @@ const showComments = (photoComments) => {
   socialCommentsLoader.addEventListener('click', renderComments);
 };
 
-export { showComments };
+export { showComments, clearComments };
