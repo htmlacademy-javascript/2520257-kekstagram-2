@@ -1,5 +1,3 @@
-import '.../vendor/nouislider/nouislider.js';
-
 //const uploadForm = document.querySelector('.img-upload__form');
 //const uploadImage = document.querySelector('.img-upload__preview img');
 const effectLevel = document.querySelector('.img-upload__effect-level');
@@ -8,97 +6,6 @@ const effectSlider = effectLevel.querySelector('.effect-level__slider');
 //const effectPreviews = document.querySelectorAll('.effects__preview');
 const effectRadioButtons = document.querySelectorAll('.effects__radio');
 
-// массив Фильтров
-
-const EFFECTS = [
-  none: {
-    filter: '', min: 0, max: 100, step: 1, unit: ' '},
-  chrome: {
-    filter: 'grayscale', min: 0, max: 1, step: 0.1, unit: ' '},
-  sepia: {
-    filter: 'sepia', min: 0, max: 1, step: 0.1, unit: ' '},
-  marvin: {
-    filter: 'invert', min: 0, max: 100, step: 1, unit: '%'},
-  phobos: {
-    filter: 'blur', min: 0, max: 3, step: 0.1, unit: 'px'},
-  heat: {
-    filter: 'brightness', min: 1, max: 3, step: 0.1, unit: ' '}
-];
-
-// Фильтр по умолчанию
-
-const DEFAULT_EFFECT = EFFECTS[0];
-
-let currentEffect = DEFAULT_EFFECT;
-
-// Создаем слайдер
-
-const slider = noUiSlider.create(effectSlider, {
-  range: {
-    min: DEFAULT_EFFECT.min,
-    max: DEFAULT_EFFECT.max,
-  },
-  start: DEFAULT_EFFECT.max,
-  step: DEFAULT_EFFECT.step,
-  connect: 'lower',
-  format: {
-    to: function (value) {
-      if (Number.isInteger(value)) {
-        return value.toFixed(0);
-      }
-      return value.toFixed(1);
-    },
-    from: function (value) {
-      return parseFloat(value);
-    },
-  },
-});
-
-// Обновляем слайдер
-
-const updateEffect = (currentEffect) => {
-  effectSlider.classList.remove('hidden');
-  slider.updateOptions({
-    range: {
-      min: currentEffect.min,
-      max: currentEffect.max,
-    },
-    step: currentEffect.step,
-    start: currentEffect.max,
-  });
-
-  if (currentEffect === DEFAULT_EFFECT) {
-    effectSlider.classList.add('hidden');
-  }
-};
-
-// Ищем в массиве
-
-const onEffectChange = (evt) => {
-  currentEffect = EFFECTS.find((effect) => effect.name === evt.target.value);
-  updateEffect(currentEffect);
-}
-
-
-effectRadioButtons.forEach((radio) => {
-  radio.addEventListener('change', (evt) => {
-    currentEffect = evt.target.value;
-    if (currentEffect) {
-    updateEffect();
-
-
-
-    }
-});
-
-//
-
-slider.on('update', onEffectChange);
-
-
-slider.on('update', () => {
-  effectLevelValue.value = slider.get();
-});
 
 //slider.destroy();
 

@@ -36,27 +36,27 @@ const renderComments = () => {
   socialCommentsCount.firstChild.textContent = newCommentsLength;
   socialCommentsCount.querySelector('.social__comment-total-count').textContent = commentsData.length;
 
-  if (newCommentsLength >= commentsData.length) {
-    socialCommentsLoader.classList.add('hidden');
-  } else {
-    clearComments();
-  }
+  socialCommentsLoader.classList.toggle('hidden', newCommentsLength >= commentsData.length);
+
   commentsShown += COMMENTS_COUNT;
-  //commentsShown = newCommentsLength;
-  //commentsData = photo;
+};
+
+const onSocialCommentsLoaderClick = () => {
+  renderComments();
 };
 
 const clearComments = () => {
   commentsShown = 0;
   socialCommentsList.innerHTML = '';
   socialCommentsLoader.classList.remove('hidden');
-  socialCommentsLoader.removeEventListener('click', renderComments);
+  socialCommentsLoader.removeEventListener('click', onSocialCommentsLoaderClick);
 };
 
 const showComments = (photoComments) => {
   commentsData = photoComments;
+  clearComments();
   renderComments();
-  socialCommentsLoader.addEventListener('click', renderComments);
+  socialCommentsLoader.addEventListener('click', onSocialCommentsLoaderClick);
 };
 
 export { showComments, clearComments };
