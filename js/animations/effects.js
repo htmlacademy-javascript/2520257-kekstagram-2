@@ -60,11 +60,11 @@ const updateEffect = (currentEffect) => {
   effectSlider.classList.remove('hidden');
   slider.updateOptions({
     range: {
-      min: chosenEffect.min,
-      max: chosenEffect.max,
+      min: currentEffect.min,
+      max: currentEffect.max,
     },
-    step: chosenEffect.step,
-    start: chosenEffect.max,
+    step: currentEffect.step,
+    start: currentEffect.max,
   });
 
   if (currentEffect === DEFAULT_EFFECT) {
