@@ -29,12 +29,12 @@ const openBigPicture = () => {
 
 //let currentPhoto;
 
-const closeBigPicture = () => {
+function closeBigPicture () {
   clearComments();
   bigPicture.classList.add('hidden');
   document.body.classList.remove('modal-open');
   document.removeEventListener('keydown', onDocumentKeydown);
-};
+}
 
 const renderBigPicture = () => {
   picturesList.addEventListener('click', (evt) => {

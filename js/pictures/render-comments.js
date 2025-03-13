@@ -41,9 +41,7 @@ const renderComments = () => {
   commentsShown += COMMENTS_COUNT;
 };
 
-const onSocialCommentsLoaderClick = () => {
-  renderComments();
-};
+const onSocialCommentsLoaderClick = () => renderComments();
 
 const clearComments = () => {
   commentsShown = 0;
