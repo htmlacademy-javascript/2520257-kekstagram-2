@@ -6,7 +6,7 @@ const effectLevel = uploadWrapper.querySelector('.img-upload__effect-level');
 const effectSlider = effectLevel.querySelector('.effect-level__slider');
 //const effectsList = uploadWrapper.querySelector('.effects__list');
 //const effectPreviews = document.querySelectorAll('.effects__preview');
-//const effectRadioButtons = document.querySelectorAll('.effects__radio');
+const effectRadioButtons = document.querySelectorAll('.effects__radio');
 
 // массив Фильтров
 
@@ -80,13 +80,21 @@ const onFormUpdate = (evt) => {
 
 const onEffectChange = () => {
   uploadImage.style.filter = 'none';
-  effectLevel.value = '';
+  effectLevel.value = slider.get();
 
-  const effectValue = slider.get();
+  //const effectValue = slider.get();
 
-  uploadImage.style.filter = `${currentEffect.style}(${effectValue}${currentEffect.unit})`;
+  effectRadioButtons.forEach((radio) => {
+    if(radio.checked) {
+      if (radio.value !== 'none') {
+        uploadImage.style.filter = `${currentEffect.style}(${effectLevel.value}${currentEffect.unit})`;
+      }
+    }
+  });
+
+
   //console.log(uploadImage.style.filter);
-  effectLevel.value = effectValue;
+  //effectLevel.value = effectValue;
 };
 
 slider.on('update', onEffectChange);
