@@ -2,21 +2,7 @@ import { isEscapeKey } from '../utils/dom.js';
 const uploadForm = document.querySelector('.img-upload__form');
 const uploadButton = uploadForm.querySelector('.img-upload__input');
 const uploadOverlay = uploadForm.querySelector('.img-upload__overlay');
-//const uploadImgPreview = uploadForm.querySelector('.img-upload__preview img');
-const uoloadOverlayCancel = uploadForm.querySelector('.img-upload__cancel');
-
-// Открытие формы загрузки изображения
-
-const openUploadForm = () => {
-  uploadOverlay.classList.remove('hidden');
-  document.body.classList.add('modal-open');
-  document.addEventListener('keydown', onUploadFormKeydown);
-};
-
-uploadButton.addEventListener('change', () => {
-  //   uploadImgPreview.src = ...; замена изображения
-  openUploadForm();
-});
+const uploadResetButton = uploadForm.querySelector('.img-upload__cancel');
 
 // закрытие формы
 
@@ -28,15 +14,32 @@ const onUploadFormKeydown = (evt) => {
   }
 };
 
-const closeUploadForm = () => {
-  pristine.reset();
+const onUploadFormCancelClick = () => {
+  closeUploadForm ();
+};
+
+function closeUploadForm () {
+  //pristine.reset();
   uploadOverlay.classList.add('hidden');
   document.body.classList.remove('modal-open');
   document.removeEventListener('keydown', onUploadFormKeydown);
+  uploadResetButton.removeEventListener('click', onUploadFormCancelClick);
+  //uploadButton.value = '';
+}
+
+
+// Открытие формы загрузки изображения
+
+const openUploadForm = () => {
+  uploadButton.addEventListener('change', () => {
+    uploadOverlay.classList.remove('hidden');
+    document.body.classList.add('modal-open');
+    document.addEventListener('keydown', onUploadFormKeydown);
+    uploadResetButton.addEventListener('click', onUploadFormCancelClick);
+  });
 };
 
-uoloadOverlayCancel.addEventListener('click', closeUploadForm);
-
+openUploadForm();
 
 //export { uploadOverlay };
 
