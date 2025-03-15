@@ -7,6 +7,8 @@ const HASHTAG_VALID_SYMBOLS = /^#[a-zа-яё0-9]{1,19}$/i;
 
 const HASHTAG_MAX_NUMBER = 5;
 
+const HASHTAG_MAX_SYMBOLS = 20;
+
 const COMMENT_MAX_LENGTH = 140;
 
 let errorText = '';
@@ -38,8 +40,8 @@ const isHashtagsValid = (value) => {
       error: 'Хештеги не должны повторяться',
     },
     {
-      check: inputArray.some((item) => item.length > HASHTAG_MAX_NUMBER),
-      error: 'Хештег не может быть больше 20 символов',
+      check: inputArray.some((item) => item.length > HASHTAG_MAX_SYMBOLS),
+      error: `Хештег не может быть больше ${HASHTAG_MAX_SYMBOLS} символов, включая символ решётки`,
     },
     {
       check: inputArray.length > COMMENT_MAX_LENGTH,
