@@ -1,46 +1,54 @@
-const uploadOverlay = document.querySelector('.img-upload__overlay');
+// Элементы управления масштабом
 
-//изменение масштаба изображения
+const scaleValue = document.querySelector('.scale__control--value');
+const decreaseButton = document.querySelector('.scale__control--smaller');
+const increaseButton = document.querySelector('.scale__control--bigger');
+const uploadImage = document.querySelector('.img-upload__preview img');
 
-const scaleControl = uploadOverlay.querySelectorAll('.scale__control');
-const uploadImage = uploadOverlay.querySelector('.img-upload__preview img');
+// Константы для масштабирования
 
 const MAX_SCALE = 100;
 const MIN_SCALE = 25;
 const SCALE_STEP = 25;
-let currentValue = 100;
+let currentValue = MAX_SCALE;
 
-// Обновление значения
+// Обновление значения масштаба
 
 const changeScale = () => {
-  scaleControl[2].removeAttribute('disabled', '');
-  scaleControl[0].removeAttribute('disabled', '');
-  scaleControl[1].value = `${currentValue}%`;
+  scaleValue.value = `${currentValue}%`;
   uploadImage.style.transform = `scale(${currentValue / 100})`;
+
+  increaseButton.disabled = currentValue >= MAX_SCALE;
+  decreaseButton.disabled = currentValue <= MIN_SCALE;
 };
 
-// Кнопка увеличить
+// Сброс масштаба
 
-scaleControl[2].addEventListener('click', () => {
+const resetScale = () => {
+  currentValue = MAX_SCALE;
+  scaleValue.value = `${currentValue}%`;
+  uploadImage.style.transform = 'scale(1.00)';
+  increaseButton.disabled = false;
+  decreaseButton.disabled = false;
+  changeScale();
+};
+
+// Кнопка Увеличить
+
+increaseButton.addEventListener('click', () => {
   if (currentValue < MAX_SCALE) {
     currentValue += SCALE_STEP;
     changeScale();
-  } else {
-    scaleControl[2].setAttribute('disabled', '');
   }
-  return currentValue;
 });
 
-// Кнопка уменьшить
+// Кнопка Уменьшить
 
-scaleControl[0].addEventListener('click', () => {
+decreaseButton.addEventListener('click', () => {
   if (currentValue > MIN_SCALE) {
     currentValue -= SCALE_STEP;
     changeScale();
-  } else {
-    scaleControl[0].setAttribute('disabled', '');
   }
-  return currentValue;
 });
 
-export { uploadImage };
+export { resetScale };
