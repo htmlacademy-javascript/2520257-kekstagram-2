@@ -3,7 +3,6 @@ const uploadImage = uploadForm.querySelector('.img-upload__preview img');
 const effectLevelField = uploadForm.querySelector('.img-upload__effect-level');
 const effectLevelValue = effectLevelField.querySelector('.effect-level__value');
 const effectSlider = effectLevelField.querySelector('.effect-level__slider');
-//const effectRadioButtons = effectLevelField.querySelectorAll('.effects__radio');
 
 // массив Фильтров
 
@@ -18,19 +17,18 @@ const effects = {
 
 // Фильтр по умолчанию
 
-const DEFAULT_EFFECT = effects.none;
-
+const DEFAULT_EFFECT = 'none';
 let currentEffect = DEFAULT_EFFECT;
 
 // Создаем слайдер
 
 noUiSlider.create(effectSlider, {
   range: {
-    min: currentEffect.min,
-    max: currentEffect.max,
+    min: effects[DEFAULT_EFFECT].min,
+    max: effects[DEFAULT_EFFECT].max,
   },
-  start: currentEffect.max,
-  step: currentEffect.step,
+  start: effects[DEFAULT_EFFECT].max,
+  step: effects[DEFAULT_EFFECT].step,
   connect: 'lower',
   format: {
     to: (value) => Number.isInteger(value) ? value : value.toFixed(1),
@@ -45,9 +43,9 @@ const slider = effectSlider.noUiSlider;
 const applyEffect = (effect, value) => {
   const filter = effects[effect];
 
-  //НЕ ПОНИМАЮ ПОЧЕМУ ОШИБКА
-  //uploadImage.style.filter = `${filter.filter}(${value}${filter.unit})`;
+  uploadImage.style.filter = `${filter.filter}(${value}${filter.unit})`;
 };
+
 
 // Обновляем слайдер и применяем эффект
 
@@ -70,6 +68,7 @@ const updateEffect = (effect) => {
   }
 };
 
+
 // Обработчик изменения радио-кнопок
 
 const onFormUpdate = (evt) => {
@@ -83,7 +82,7 @@ const onFormUpdate = (evt) => {
 
 const onSliderUpdate = () => {
   effectLevelValue.value = slider.get();
-  if (currentEffect !== 'none') {
+  if (currentEffect !== 'none' && effects[currentEffect]) {
     applyEffect(currentEffect, slider.get());
   }
 };
