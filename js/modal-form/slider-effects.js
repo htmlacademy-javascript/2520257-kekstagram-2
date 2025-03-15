@@ -73,6 +73,8 @@ const updateEffect = (effect) => {
 const resetEffects = () => {
   uploadImage.style.filter = 'none';
   uploadImage.className = '';
+  effectLevelValue.value = effects[DEFAULT_EFFECT].max;
+  currentEffect = DEFAULT_EFFECT;
 
   slider.updateOptions({
     range: {
@@ -83,8 +85,7 @@ const resetEffects = () => {
     step: effects[DEFAULT_EFFECT].step,
   });
 
-  effectLevelValue.value = effects[DEFAULT_EFFECT].max;
-  currentEffect = DEFAULT_EFFECT;
+
   effectLevelField.classList.add('hidden');
   uploadForm.reset();
 };
