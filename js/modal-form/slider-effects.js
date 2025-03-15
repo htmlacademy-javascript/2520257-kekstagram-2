@@ -4,6 +4,11 @@ const effectLevelField = uploadForm.querySelector('.img-upload__effect-level');
 const effectLevelValue = effectLevelField.querySelector('.effect-level__value');
 const effectSlider = effectLevelField.querySelector('.effect-level__slider');
 
+// Фильтр по умолчанию
+
+const DEFAULT_EFFECT = 'none';
+let currentEffect = DEFAULT_EFFECT;
+
 // массив Фильтров
 
 const effects = {
@@ -14,11 +19,6 @@ const effects = {
   phobos: { filter: 'blur', min: 0, max: 3, step: 0.1, unit: 'px' },
   heat: { filter: 'brightness', min: 1, max: 3, step: 0.1, unit: '' }
 };
-
-// Фильтр по умолчанию
-
-const DEFAULT_EFFECT = 'none';
-let currentEffect = DEFAULT_EFFECT;
 
 // Создаем слайдер
 
@@ -68,6 +68,26 @@ const updateEffect = (effect) => {
   }
 };
 
+// Сбрасываем слайдер
+
+const resetEffects = () => {
+  uploadImage.style.filter = 'none';
+  uploadImage.className = '';
+
+  slider.updateOptions({
+    range: {
+      min: effects[DEFAULT_EFFECT].min,
+      max: effects[DEFAULT_EFFECT].max,
+    },
+    start: effects[DEFAULT_EFFECT].max,
+    step: effects[DEFAULT_EFFECT].step,
+  });
+
+  effectLevelValue.value = effects[DEFAULT_EFFECT].max;
+  currentEffect = DEFAULT_EFFECT;
+  effectLevelField.classList.add('hidden');
+  uploadForm.reset();
+};
 
 // Обработчик изменения радио-кнопок
 
@@ -93,70 +113,4 @@ effectLevelField.classList.add('hidden');
 uploadForm.addEventListener('change', onFormUpdate);
 slider.on('update', onSliderUpdate);
 
-
-// наброски
-// const updateEffect = (effect) => {
-//   effectLevelField.classList.remove('hidden');
-
-//   slider.updateOptions({
-//     range: {
-//       min: effects[effect].min,
-//       max: effects[effect].max,
-//     },
-//     step: effects[effect].step,
-//     start: effects[effect].max,
-//   });
-
-//   if (effect === DEFAULT_EFFECT) {
-//     effectLevelField.classList.add('hidden');
-//   }
-// };
-
-// //Находим эффект в форме
-
-// const onFormUpdate = (evt) => {
-//   if (!evt.target.classList.contains('effects__radio')) {
-//     return;
-//   }
-//   for (const effectTarget in effects) {
-//     if (effectTarget === evt.target.value) {
-//       currentEffect = effectTarget;
-//       console.log(effectTarget);
-//       break;
-//     }
-//   }
-//   updateEffect(currentEffect);
-// };
-
-// effectRadioButtons.forEach((element) => {
-//   element.addEventListener('change', (radio) => {
-//     if (radio.target.checked) {
-//       if (radio.value !== 'none') {
-//         uploadImage.style.filter = `${currentEffect.style}(${effectLevelValue.value}${currentEffect.unit})`;
-//       }
-//     }
-//   });
-// });
-
-
-// //Применяем эффект к изображению
-
-// const onEffectUpdate = () => {
-//   uploadImage.style.filter = 'none';
-//   uploadImage.className = '';
-//   effectLevelValue.value = slider.get();
-
-//   //const effectValue = slider.get();
-
-// };
-
-
-// // const onRadioButtonUpdate = (radio) {
-// // }
-
-
-// slider.on('update', onEffectUpdate);
-// //effectRadioButtons.addEventListener('change', onRadioButtonUpdate);
-// uploadForm.addEventListener('change', onFormUpdate);
-
-
+export { resetEffects };

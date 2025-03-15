@@ -19,6 +19,13 @@ const changeScale = () => {
   uploadImage.style.transform = `scale(${currentValue / 100})`;
 };
 
+// Сброс значения
+
+const resetScale = () => {
+  scaleControl.value = '100%';
+  uploadImage.style.transform = 'scale(1.00)';
+};
+
 // Кнопка увеличить
 
 scaleControl[2].addEventListener('click', () => {
@@ -43,4 +50,4 @@ scaleControl[0].addEventListener('click', () => {
   return currentValue;
 });
 
-export { uploadImage };
+export { resetScale };
