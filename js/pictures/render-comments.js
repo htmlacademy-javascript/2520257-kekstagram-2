@@ -13,9 +13,6 @@ const COMMENTS_COUNT = 5;
 let commentsShown = 0;
 let commentsData = [];
 
-//Функция загрузки комменатриев при нажатии кнопки
-
-
 //Наполнение для полноэкранных изображений
 
 const renderComments = () => {
@@ -29,10 +26,12 @@ const renderComments = () => {
     commentElement.querySelector('.social__picture').src = avatar;
     commentElement.querySelector('.social__picture').alt = name;
     commentElement.querySelector('.social__text').textContent = message;
+
     socialCommentsFragment.appendChild(commentElement);
   });
 
   socialCommentsList.appendChild(socialCommentsFragment);
+
   socialCommentsCount.firstChild.textContent = newCommentsLength;
   socialCommentsCount.querySelector('.social__comment-total-count').textContent = commentsData.length;
 
@@ -41,7 +40,11 @@ const renderComments = () => {
   commentsShown += COMMENTS_COUNT;
 };
 
+// Обработчик клика на кнопку загрузки комментариев
+
 const onSocialCommentsLoaderClick = () => renderComments();
+
+// Очистка комментариев
 
 const clearComments = () => {
   commentsShown = 0;
@@ -49,6 +52,8 @@ const clearComments = () => {
   socialCommentsLoader.classList.remove('hidden');
   socialCommentsLoader.removeEventListener('click', onSocialCommentsLoaderClick);
 };
+
+// Показ комментариев
 
 const showComments = (photoComments) => {
   commentsData = photoComments;

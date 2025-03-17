@@ -24,15 +24,12 @@ const onUploadFormCancelClick = () => {
 function closeUploadForm () {
   resetEffects();
   resetScale();
-
-  //pristine.reset();
+  uploadForm.reset();
   uploadOverlay.classList.add('hidden');
   document.body.classList.remove('modal-open');
   document.removeEventListener('keydown', onUploadFormKeydown);
   uploadResetButton.removeEventListener('click', onUploadFormCancelClick);
-  //uploadButton.value = '';
 }
-
 
 // Открытие формы загрузки изображения
 
@@ -46,4 +43,6 @@ const openUploadForm = () => {
 };
 
 openUploadForm();
+
+export { closeUploadForm };
 

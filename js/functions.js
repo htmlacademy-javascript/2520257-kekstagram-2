@@ -41,7 +41,7 @@ function getInteger(strValue) {
 
 getInteger(678567);
 
-//Быстрое решение от наставника :O
+// Еще одно решение.\
 // function getInteger(strValue) {
 //   return parseInt(strValue.replaceAll(/\D/g, ''), 10);
 // }
