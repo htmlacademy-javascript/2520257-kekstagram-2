@@ -1,5 +1,5 @@
 import { isEscapeKey } from '../utils/dom.js';
-import { thumbnailsData, picturesList } from './thumbnails.js';
+import { picturesList } from './thumbnails.js';
 import { showComments, clearComments } from './render-comments.js';
 
 const bigPicture = document.querySelector('.big-picture');
@@ -27,7 +27,28 @@ const openBigPicture = () => {
   bigPictureCancel.addEventListener('click', onBigPictureClick, {once: true});
 };
 
-//let currentPhoto;
+const renderBigPicture = (photos) => {
+  picturesList.addEventListener('click', (evt) => {
+    const currentThumbnail = evt.target.closest('[data-photo-id]');
+
+    if (currentThumbnail) {
+
+      const photoId = Number(currentThumbnail.dataset.photoId);
+      const currentPhoto = photos.find((photo) => photo.id === photoId);
+
+      if (currentPhoto) {
+        bigPictureImg.src = currentPhoto.url;
+        bigPictureImg.alt = currentPhoto.description;
+        bigPictureLikes.textContent = currentPhoto.likes;
+        socialCaption.textContent = currentPhoto.description;
+
+        showComments(currentPhoto.comments);
+
+        openBigPicture();
+      }
+    }
+  });
+};
 
 function closeBigPicture () {
   clearComments();
@@ -35,23 +56,5 @@ function closeBigPicture () {
   document.body.classList.remove('modal-open');
   document.removeEventListener('keydown', onDocumentKeydown);
 }
-
-const renderBigPicture = () => {
-  picturesList.addEventListener('click', (evt) => {
-    const currentThumbnail = evt.target.closest('[data-photo-id]');
-
-    if (currentThumbnail) {
-      const currentPhoto = thumbnailsData.find((photo) => photo.id === Number(currentThumbnail.dataset.photoId));
-
-      bigPictureImg.src = currentPhoto.url;
-      bigPictureLikes.textContent = currentPhoto.likes;
-      socialCaption.textContent = currentPhoto.description;
-
-      showComments(currentPhoto.comments);
-
-      openBigPicture();
-    }
-  });
-};
 
 export { renderBigPicture };

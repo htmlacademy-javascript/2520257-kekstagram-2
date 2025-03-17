@@ -1,16 +1,16 @@
-// Элементы управления масштабом
-
-const scaleValue = document.querySelector('.scale__control--value');
-const decreaseButton = document.querySelector('.scale__control--smaller');
-const increaseButton = document.querySelector('.scale__control--bigger');
-const uploadImage = document.querySelector('.img-upload__preview img');
-
 // Константы для масштабирования
 
 const MAX_SCALE = 100;
 const MIN_SCALE = 25;
 const SCALE_STEP = 25;
 let currentValue = MAX_SCALE;
+
+// Элементы управления масштабом
+
+const scaleValue = document.querySelector('.scale__control--value');
+const decreaseButton = document.querySelector('.scale__control--smaller');
+const increaseButton = document.querySelector('.scale__control--bigger');
+const uploadImage = document.querySelector('.img-upload__preview img');
 
 // Обновление значения масштаба
 
@@ -35,20 +35,25 @@ const resetScale = () => {
 
 // Кнопка Увеличить
 
-increaseButton.addEventListener('click', () => {
+const increaseScale = () => {
   if (currentValue < MAX_SCALE) {
     currentValue += SCALE_STEP;
     changeScale();
   }
-});
+};
 
 // Кнопка Уменьшить
 
-decreaseButton.addEventListener('click', () => {
+const decreaseScale = () => {
   if (currentValue > MIN_SCALE) {
     currentValue -= SCALE_STEP;
     changeScale();
   }
-});
+};
+
+// Добавляем обработчики для кнопок
+
+increaseButton.addEventListener('click', increaseScale);
+decreaseButton.addEventListener('click', decreaseScale);
 
 export { resetScale };
