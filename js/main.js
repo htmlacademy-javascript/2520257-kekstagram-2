@@ -15,8 +15,8 @@ const loadDataFromServer = () => {
       renderThumbnails(photos);
       renderBigPicture(photos);
     })
-    .catch(() => {
-      showErrorMessage();
+    .catch((error) => {
+      showErrorMessage(error.message);
     });
 };
 
