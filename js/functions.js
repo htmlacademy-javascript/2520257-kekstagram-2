@@ -45,3 +45,4 @@ getInteger(678567);
 // function getInteger(strValue) {
 //   return parseInt(strValue.replaceAll(/\D/g, ''), 10);
 // }
+//
