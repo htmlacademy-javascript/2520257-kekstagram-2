@@ -1,9 +1,3 @@
-const bigPicture = document.querySelector('.big-picture');
-const socialCommentsList = bigPicture.querySelector('.social__comments');
-const socialCommentsItem = bigPicture.querySelector('.social__comment');
-const socialCommentsCount = bigPicture.querySelector('.social__comment-count');
-const socialCommentsLoader = bigPicture.querySelector('.comments-loader');
-
 //Колличество комментарией добавляемое по кнопке
 
 const COMMENTS_COUNT = 5;
@@ -12,6 +6,15 @@ const COMMENTS_COUNT = 5;
 
 let commentsShown = 0;
 let commentsData = [];
+
+// Элементы комментариев и картинки
+
+const bigPicture = document.querySelector('.big-picture');
+const socialCommentsList = bigPicture.querySelector('.social__comments');
+const socialCommentsItem = bigPicture.querySelector('.social__comment');
+const socialCommentsCount = bigPicture.querySelector('.social__comment-count');
+const socialCommentsLoader = bigPicture.querySelector('.comments-loader');
+
 
 //Наполнение для полноэкранных изображений
 

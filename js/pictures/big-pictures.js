@@ -1,5 +1,4 @@
 import { isEscapeKey } from '../utils/dom.js';
-import { picturesList } from './thumbnails.js';
 import { showComments, clearComments } from './render-comments.js';
 
 const bigPicture = document.querySelector('.big-picture');
@@ -7,6 +6,9 @@ const bigPictureCancel = bigPicture.querySelector('.big-picture__cancel');
 const bigPictureImg = bigPicture.querySelector('.big-picture__img img');
 const bigPictureLikes = bigPicture.querySelector('.likes-count');
 const socialCaption = bigPicture.querySelector('.social__caption');
+const picturesList = document.querySelector('.pictures');
+
+// Обработчики
 
 const onDocumentKeydown = (evt) => {
   if (isEscapeKey(evt)) {
@@ -19,6 +21,8 @@ const onBigPictureClick = () => {
   closeBigPicture();
 };
 
+// Открытия окна полноразмерной картинки
+
 const openBigPicture = () => {
   bigPicture.classList.remove('hidden');
   document.body.classList.add('modal-open');
@@ -26,6 +30,8 @@ const openBigPicture = () => {
   document.addEventListener('keydown', onDocumentKeydown);
   bigPictureCancel.addEventListener('click', onBigPictureClick, {once: true});
 };
+
+// Ищем картинку среди миниатюр
 
 const renderBigPicture = (photos) => {
   picturesList.addEventListener('click', (evt) => {
@@ -49,6 +55,8 @@ const renderBigPicture = (photos) => {
     }
   });
 };
+
+// Функция закрытия окна
 
 function closeBigPicture () {
   clearComments();

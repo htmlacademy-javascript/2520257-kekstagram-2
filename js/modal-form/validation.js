@@ -1,7 +1,6 @@
-import { numDecline, getTemplate } from '../utils/dom';
+import { numDecline, getTemplate, isEscapeKey } from '../utils/dom';
 import { sendData } from '../api';
 import { closeUploadForm } from './upload-form.js';
-import { isEscapeKey } from '../utils/dom';
 
 const uploadForm = document.querySelector('.img-upload__form');
 const submitButton = uploadForm.querySelector('.img-upload__submit');
@@ -19,13 +18,9 @@ const errorTemplate = getTemplate('#data-error');
 // Константы для валидации
 
 const HASHTAG_VALID_SYMBOLS = /^#[a-zа-яё0-9]{1,19}$/i;
-
 const HASHTAG_MAX_NUMBER = 5;
-
 const HASHTAG_MAX_SYMBOLS = 20;
-
 const COMMENT_MAX_LENGTH = 140;
-
 const REMOVE_MESSAGE_TIMEOUT = 5000;
 
 let errorText = '';
@@ -74,7 +69,7 @@ const showErrorMessage = (errorMessageText) => {
   const errorModal = errorTemplate.cloneNode(true);
 
   const errorMessage = errorModal.querySelector('.data-error__title');
-  if (!errorMessage) {
+  if (errorMessage) {
     errorMessage.textContent = errorMessageText;
   }
 
@@ -133,7 +128,7 @@ const isHashtagsValid = (value) => {
       error: `Хештег не может быть больше ${HASHTAG_MAX_SYMBOLS} символов, включая символ решётки`,
     },
     {
-      check: inputArray.length > COMMENT_MAX_LENGTH,
+      check: inputArray.length > HASHTAG_MAX_NUMBER,
       error: `Нельзя указать больше ${HASHTAG_MAX_NUMBER} ${numDecline(
         HASHTAG_MAX_NUMBER, 'хештега', 'хештегов', 'хештегов'
       )}, `
