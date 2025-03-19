@@ -97,12 +97,6 @@ const unblockSubmitButton = () => {
   submitButton.textContent = SubmitButtonText.IDLE;
 };
 
-// const uodateText = debounce(() => {
-//   const filteredImages = applyFilter(pictures, currentFilter);
-//   renderThumbnails(filteredImages);
-// }, RERENDER_DELAY);
-
-
 // Проверка хэштега на валидность
 
 const isHashtagsValid = (value) => {
@@ -191,13 +185,5 @@ pristine.addValidator(commentInput, (value) => value.length <= COMMENT_MAX_LENGT
 pristine.addValidator(hashtagInput, isHashtagsValid, error, false);
 
 uploadForm.addEventListener('submit', onFormSubmit);
-
-hashtagInput.addEventListener('input', (evt) => {
-  validateHashtags(evt.target.value);
-});
-
-commentInput.addEventListener('input', (evt) => {
-  validateComments(evt.target.value);
-});
 
 export { showErrorMessage };
