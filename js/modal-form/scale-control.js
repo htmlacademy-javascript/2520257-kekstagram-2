@@ -35,7 +35,7 @@ const resetScale = () => {
 
 // Кнопка Увеличить
 
-const increaseScale = () => {
+const onIncreaseButtonClick = () => {
   if (currentValue < MAX_SCALE) {
     currentValue += SCALE_STEP;
     changeScale();
@@ -44,7 +44,7 @@ const increaseScale = () => {
 
 // Кнопка Уменьшить
 
-const decreaseScale = () => {
+const onDecreaseButtonClick = () => {
   if (currentValue > MIN_SCALE) {
     currentValue -= SCALE_STEP;
     changeScale();
@@ -53,7 +53,7 @@ const decreaseScale = () => {
 
 // Добавляем обработчики для кнопок
 
-increaseButton.addEventListener('click', increaseScale);
-decreaseButton.addEventListener('click', decreaseScale);
+increaseButton.addEventListener('click', onIncreaseButtonClick);
+decreaseButton.addEventListener('click', onDecreaseButtonClick);
 
 export { resetScale };
