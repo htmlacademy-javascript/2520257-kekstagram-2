@@ -1,3 +1,5 @@
+const REMOVE_MESSAGE_TIMEOUT = 5000;
+
 // Функция для проверки и вывода шаблона
 
 const getTemplate = (id) => {
@@ -55,4 +57,17 @@ function throttle (callback, delayBetweenFrames) {
 
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
-export { getTemplate, isEscapeKey, numDecline, debounce, throttle };
+// Показ окна об ошибке с задержкой 5 секунд
+
+const showDataError = () => {
+  const errorTemplate = getTemplate('#data-error');
+  const errorModal = errorTemplate.cloneNode(true);
+
+  document.body.append(errorModal);
+
+  setTimeout(() => {
+    errorModal.remove();
+  }, REMOVE_MESSAGE_TIMEOUT);
+};
+
+export { getTemplate, isEscapeKey, numDecline, debounce, throttle, showDataError};

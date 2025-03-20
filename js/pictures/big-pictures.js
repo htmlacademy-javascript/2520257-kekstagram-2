@@ -1,6 +1,8 @@
 import { isEscapeKey } from '../utils/dom.js';
 import { showComments, clearComments } from './render-comments.js';
 
+// Элементы
+
 const bigPicture = document.querySelector('.big-picture');
 const bigPictureCancel = bigPicture.querySelector('.big-picture__cancel');
 const bigPictureImg = bigPicture.querySelector('.big-picture__img img');

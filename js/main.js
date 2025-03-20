@@ -1,6 +1,6 @@
 import { renderBigPicture } from './pictures/big-pictures.js';
 import { renderFilters } from './pictures/sort-pictures.js';
-import { showErrorMessage } from './modal-form/validation.js';
+import { showDataError } from './utils/dom.js';
 import { getData } from './api.js';
 import './modal-form/upload-picture.js';
 import './modal-form/slider-effects.js';
@@ -9,7 +9,7 @@ import './modal-form/scale-control.js';
 import './modal-form/validation.js';
 
 
-// Полчение изображений с сервера
+// Получение изображений с сервера
 
 const loadDataFromServer = () => {
   getData()
@@ -17,8 +17,8 @@ const loadDataFromServer = () => {
       renderFilters(photos);
       renderBigPicture(photos);
     })
-    .catch((error) => {
-      showErrorMessage(error.message);
+    .catch(() => {
+      showDataError();
     });
 };
 

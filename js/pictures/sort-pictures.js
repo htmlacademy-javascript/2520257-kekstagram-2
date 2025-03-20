@@ -1,8 +1,7 @@
 import { debounce } from '../utils/dom';
 import { renderThumbnails } from './thumbnails';
 
-const imageFilters = document.querySelector('.img-filters');
-const filterButtons = imageFilters.querySelectorAll('.img-filters__button');
+// Константы
 
 const RERENDER_DELAY = 500;
 const RANDOM_IMAGES_NUMBER = 10;
@@ -13,8 +12,13 @@ const Filter = {
   DISCUSSED: 'filter-discussed'
 };
 
+// Массив миниатюр
+
 let pictures = [];
 let currentFilter = Filter.DEFAULT;
+
+const imageFilters = document.querySelector('.img-filters');
+const filterButtons = imageFilters.querySelectorAll('.img-filters__button');
 
 // Функция сортировки по умолчанию
 
@@ -23,8 +27,9 @@ const sortDefault = (images) => images.slice();
 // Функция сортировки случайных изображений
 
 const sortRandom = (images) => {
-  const shuffledImages = images.slice().sort(() => Math.random() - 0.5);
-  return shuffledImages.slice(0, RANDOM_IMAGES_NUMBER);
+  const shuffledImages = images.slice().sort(() => 0.5 - Math.random()).slice(0, RANDOM_IMAGES_NUMBER);
+
+  return shuffledImages.sort((a, b) => a.id - b.id);
 };
 
 // Функция сортировки по кол-ву комменатриев

@@ -2,6 +2,29 @@ import { numDecline, getTemplate, isEscapeKey } from '../utils/dom';
 import { sendData } from '../api';
 import { closeUploadForm } from './upload-form.js';
 
+// Константы для валидации
+
+const HASHTAG_VALID_SYMBOLS = /^#[a-zа-яё0-9]{1,19}$/i;
+const HASHTAG_MAX_NUMBER = 5;
+const HASHTAG_MAX_SYMBOLS = 20;
+const COMMENT_MAX_LENGTH = 140;
+//const REMOVE_MESSAGE_TIMEOUT = 5000;
+
+// Текст ошибки
+
+let errorText = '';
+
+const error = () => errorText;
+
+// Текст для кнопки отправить
+
+const SubmitButtonText = {
+  IDLE: 'Опубликовать',
+  SENDING: 'Публикую...'
+};
+
+// Элементы управления формы
+
 const uploadForm = document.querySelector('.img-upload__form');
 const submitButton = uploadForm.querySelector('.img-upload__submit');
 const hashtagInput = uploadForm.querySelector('.text__hashtags');
@@ -13,78 +36,48 @@ const successTemplate = getTemplate('#success');
 
 // Шаблон формы ошибки
 
-const errorTemplate = getTemplate('#data-error');
-
-// Константы для валидации
-
-const HASHTAG_VALID_SYMBOLS = /^#[a-zа-яё0-9]{1,19}$/i;
-const HASHTAG_MAX_NUMBER = 5;
-const HASHTAG_MAX_SYMBOLS = 20;
-const COMMENT_MAX_LENGTH = 140;
-const REMOVE_MESSAGE_TIMEOUT = 5000;
-
-let errorText = '';
-
-const error = () => errorText;
+const errorTemplate = getTemplate('#error');
 
 // Показ окна об успешной отправке формы
 
-const showSuccessMessage = () => {
-  const successModal = successTemplate.cloneNode(true);
-  const successButton = successModal.querySelector('.success__button');
+const showMessage = (message, shouldCloseForm = false) => {
+  const newMessage = message.cloneNode(true);
+  const messageButton = newMessage.querySelector('button[type="button"]');
 
-  document.body.append(successModal);
+  document.body.append(newMessage);
 
-  const onSuccessButtonClick = () => {
-    successModal.remove();
-    successButton.removeEventListener('click', onSuccessButtonClick);
-    closeUploadForm();
+  const onMessageButtonClick = () => {
+    newMessage.remove();
+    messageButton.removeEventListener('click', onMessageButtonClick);
+    if (shouldCloseForm) {
+      closeUploadForm();
+    }
   };
 
   const onDocumentKeydown = (evt) => {
     if (isEscapeKey(evt)) {
       evt.preventDefault();
-      successModal.remove();
+      newMessage.remove();
       document.removeEventListener('keydown', onDocumentKeydown);
-      closeUploadForm();
+      if (shouldCloseForm) {
+        closeUploadForm();
+      }
     }
   };
 
-  const onSuccessOverlayClick = (evt) => {
-    if (evt.target === successModal) {
-      successModal.remove();
-      document.removeEventListener('click', onSuccessOverlayClick);
-      closeUploadForm();
+  const onOverlayClick = (evt) => {
+    if (evt.target === newMessage) {
+      newMessage.remove();
+      document.removeEventListener('click', onOverlayClick);
+      if (shouldCloseForm) {
+        closeUploadForm();
+      }
     }
   };
 
   document.addEventListener('keydown', onDocumentKeydown);
-  successButton.addEventListener('click', onSuccessButtonClick);
-  document.addEventListener('click', onSuccessOverlayClick);
-};
-
-// Показ окна об ошибке с задержкой 5 секунд
-
-const showErrorMessage = (errorMessageText) => {
-  const errorModal = errorTemplate.cloneNode(true);
-
-  const errorMessage = errorModal.querySelector('.data-error__title');
-  if (errorMessage) {
-    errorMessage.textContent = errorMessageText;
-  }
-
-  document.body.append(errorModal);
-
-  setTimeout(() => {
-    errorModal.remove();
-  }, REMOVE_MESSAGE_TIMEOUT);
-};
-
-// Текст для кнопки отправить
-
-const SubmitButtonText = {
-  IDLE: 'Опубликовать',
-  SENDING: 'Публикую...'
+  messageButton.addEventListener('click', onMessageButtonClick);
+  document.addEventListener('click', onOverlayClick);
 };
 
 const blockSubmitButton = () => {
@@ -151,19 +144,20 @@ const isHashtagsValid = (value) => {
 // Валидация формы
 
 const pristine = new Pristine(uploadForm, {
-  classTo: 'img-upload__form',
+  classTo: 'img-upload__field-wrapper',
   errorTextParent: 'img-upload__field-wrapper',
-  errorTextClass: 'img-upload__field-wrapper--error'
+  errorClass: 'img-upload__field-wrapper--error'
 });
 
 const onSendDataSuccess = () => {
   closeUploadForm();
-  showSuccessMessage();
+  showMessage(successTemplate, true);
   uploadForm.reset();
 };
 
 const onSendDataError = () => {
-  showErrorMessage('Не удалось загрузить фотографию. Попробуйте еще раз.');
+  showMessage(errorTemplate, false);
+  uploadForm.reset();
 };
 
 const onFormSubmit = (evt) => {
@@ -180,10 +174,27 @@ const onFormSubmit = (evt) => {
   }
 };
 
+
+// Добавление валидаторов
+
 pristine.addValidator(commentInput, (value) => value.length <= COMMENT_MAX_LENGTH, `Длина комментария не должна превышать ${COMMENT_MAX_LENGTH} символов`);
 
 pristine.addValidator(hashtagInput, isHashtagsValid, error, false);
 
+// Добавление обработчика события отправки формы
+
 uploadForm.addEventListener('submit', onFormSubmit);
 
-export { showErrorMessage };
+hashtagInput.addEventListener('keydown', (evt) => {
+  if (isEscapeKey(evt)) {
+    evt.stopPropagation();
+  }
+});
+
+commentInput.addEventListener('keydown', (evt) => {
+  if (isEscapeKey(evt)) {
+    evt.stopPropagation();
+  }
+});
+
+export { pristine };

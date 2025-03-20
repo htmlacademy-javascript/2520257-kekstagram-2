@@ -12,7 +12,7 @@ const createThumbnails = ({id, url, description, likes, comments}) => {
 
   newPicture.querySelector('.picture__img').src = url;
   newPicture.querySelector('.picture__img').alt = description;
-  newPicture.setAttribute('data-photo-id', id);
+  newPicture.dataset.photoId = id;
   newPicture.querySelector('.picture__comments').textContent = comments.length;
   newPicture.querySelector('.picture__likes').textContent = likes;
   return newPicture;

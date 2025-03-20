@@ -1,13 +1,6 @@
-const uploadForm = document.querySelector('.img-upload__form');
-const uploadImage = uploadForm.querySelector('.img-upload__preview img');
-const effectLevelField = uploadForm.querySelector('.img-upload__effect-level');
-const effectLevelValue = effectLevelField.querySelector('.effect-level__value');
-const effectSlider = effectLevelField.querySelector('.effect-level__slider');
-
 // Фильтр по умолчанию
 
 const DEFAULT_EFFECT = 'none';
-let currentEffect = DEFAULT_EFFECT;
 
 // массив Фильтров
 
@@ -19,6 +12,18 @@ const effects = {
   phobos: { filter: 'blur', min: 0, max: 3, step: 0.1, unit: 'px' },
   heat: { filter: 'brightness', min: 1, max: 3, step: 0.1, unit: '' }
 };
+
+// Элементы управления слайдером
+
+const uploadForm = document.querySelector('.img-upload__form');
+const uploadImage = uploadForm.querySelector('.img-upload__preview img');
+const effectLevelField = uploadForm.querySelector('.img-upload__effect-level');
+const effectLevelValue = effectLevelField.querySelector('.effect-level__value');
+const effectSlider = effectLevelField.querySelector('.effect-level__slider');
+
+// Текущее значение эффекта
+
+let currentEffect = DEFAULT_EFFECT;
 
 // Создаем слайдер
 
