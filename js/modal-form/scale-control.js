@@ -51,6 +51,7 @@ const resetScale = () => {
   updateScale();
 };
 
+
 // Добавляем обработчики для кнопок
 
 increaseButton.addEventListener('click', onIncreaseButtonClick);

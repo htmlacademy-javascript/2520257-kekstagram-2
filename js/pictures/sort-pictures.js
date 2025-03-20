@@ -5,6 +5,7 @@ import { renderThumbnails } from './thumbnails';
 
 const RERENDER_DELAY = 500;
 const RANDOM_IMAGES_NUMBER = 10;
+const ACTIVE_BUTTON_CLASS = 'img-filters__button--active';
 
 const Filter = {
   DEFAULT: 'filter-default',
@@ -60,8 +61,11 @@ const updateImages = debounce(() => {
 
 const onFilterChange = (evt) => {
   const selectedButton = evt.target;
-  filterButtons.forEach((button) => button.classList.remove('img-filters__button--active'));
-  selectedButton.classList.add('img-filters__button--active');
+  if (selectedButton.classList.contains(ACTIVE_BUTTON_CLASS)) {
+    return;
+  }
+  filterButtons.forEach((button) => button.classList.remove(ACTIVE_BUTTON_CLASS));
+  selectedButton.classList.add(ACTIVE_BUTTON_CLASS);
   currentFilter = selectedButton.id;
   updateImages();
 };

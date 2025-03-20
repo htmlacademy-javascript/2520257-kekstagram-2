@@ -40,18 +40,18 @@ function debounce (callback, timeoutDelay = 500) {
 
 // Устранение задержки между кадрами
 
-function throttle (callback, delayBetweenFrames) {
-  let lastTime = 0;
+// function throttle (callback, delayBetweenFrames) {
+//   let lastTime = 0;
 
-  return (...rest) => {
-    const now = new Date();
+//   return (...rest) => {
+//     const now = new Date();
 
-    if (now - lastTime >= delayBetweenFrames) {
-      callback.apply(this, rest);
-      lastTime = now;
-    }
-  };
-}
+//     if (now - lastTime >= delayBetweenFrames) {
+//       callback.apply(this, rest);
+//       lastTime = now;
+//     }
+//   };
+// }
 
 // Кнопка esc
 
@@ -70,4 +70,4 @@ const showDataError = () => {
   }, REMOVE_MESSAGE_TIMEOUT);
 };
 
-export { getTemplate, isEscapeKey, numDecline, debounce, throttle, showDataError};
+export { getTemplate, isEscapeKey, numDecline, debounce, showDataError};

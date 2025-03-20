@@ -1,6 +1,4 @@
-import { numDecline, getTemplate, isEscapeKey } from '../utils/dom';
-import { sendData } from '../api';
-import { closeUploadForm } from './upload-form.js';
+import { numDecline, isEscapeKey } from '../utils/dom';
 
 // Константы для валидации
 
@@ -8,7 +6,6 @@ const HASHTAG_VALID_SYMBOLS = /^#[a-zа-яё0-9]{1,19}$/i;
 const HASHTAG_MAX_NUMBER = 5;
 const HASHTAG_MAX_SYMBOLS = 20;
 const COMMENT_MAX_LENGTH = 140;
-//const REMOVE_MESSAGE_TIMEOUT = 5000;
 
 // Текст ошибки
 
@@ -16,79 +13,12 @@ let errorText = '';
 
 const error = () => errorText;
 
-// Текст для кнопки отправить
-
-const SubmitButtonText = {
-  IDLE: 'Опубликовать',
-  SENDING: 'Публикую...'
-};
-
 // Элементы управления формы
 
 const uploadForm = document.querySelector('.img-upload__form');
-const submitButton = uploadForm.querySelector('.img-upload__submit');
 const hashtagInput = uploadForm.querySelector('.text__hashtags');
 const commentInput = uploadForm.querySelector('.text__description');
 
-// Шаблон формы успешной отправки
-
-const successTemplate = getTemplate('#success');
-
-// Шаблон формы ошибки
-
-const errorTemplate = getTemplate('#error');
-
-// Показ окна об успешной отправке формы
-
-const showMessage = (message, shouldCloseForm = false) => {
-  const newMessage = message.cloneNode(true);
-  const messageButton = newMessage.querySelector('button[type="button"]');
-
-  document.body.append(newMessage);
-
-  const onMessageButtonClick = () => {
-    newMessage.remove();
-    messageButton.removeEventListener('click', onMessageButtonClick);
-    if (shouldCloseForm) {
-      closeUploadForm();
-    }
-  };
-
-  const onDocumentKeydown = (evt) => {
-    if (isEscapeKey(evt)) {
-      evt.preventDefault();
-      newMessage.remove();
-      document.removeEventListener('keydown', onDocumentKeydown);
-      if (shouldCloseForm) {
-        closeUploadForm();
-      }
-    }
-  };
-
-  const onOverlayClick = (evt) => {
-    if (evt.target === newMessage) {
-      newMessage.remove();
-      document.removeEventListener('click', onOverlayClick);
-      if (shouldCloseForm) {
-        closeUploadForm();
-      }
-    }
-  };
-
-  document.addEventListener('keydown', onDocumentKeydown);
-  messageButton.addEventListener('click', onMessageButtonClick);
-  document.addEventListener('click', onOverlayClick);
-};
-
-const blockSubmitButton = () => {
-  submitButton.disabled = true;
-  submitButton.textContent = SubmitButtonText.SENDING;
-};
-
-const unblockSubmitButton = () => {
-  submitButton.disabled = false;
-  submitButton.textContent = SubmitButtonText.IDLE;
-};
 
 // Проверка хэштега на валидность
 
@@ -149,41 +79,12 @@ const pristine = new Pristine(uploadForm, {
   errorClass: 'img-upload__field-wrapper--error'
 });
 
-const onSendDataSuccess = () => {
-  closeUploadForm();
-  showMessage(successTemplate, true);
-  uploadForm.reset();
-};
-
-const onSendDataError = () => {
-  showMessage(errorTemplate, false);
-  uploadForm.reset();
-};
-
-const onFormSubmit = (evt) => {
-  evt.preventDefault();
-
-  const isValid = pristine.validate();
-
-  if (isValid) {
-    blockSubmitButton();
-    sendData(new FormData(evt.target))
-      .then(onSendDataSuccess)
-      .catch(onSendDataError)
-      .finally(unblockSubmitButton);
-  }
-};
-
-
 // Добавление валидаторов
 
 pristine.addValidator(commentInput, (value) => value.length <= COMMENT_MAX_LENGTH, `Длина комментария не должна превышать ${COMMENT_MAX_LENGTH} символов`);
 
 pristine.addValidator(hashtagInput, isHashtagsValid, error, false);
 
-// Добавление обработчика события отправки формы
-
-uploadForm.addEventListener('submit', onFormSubmit);
 
 hashtagInput.addEventListener('keydown', (evt) => {
   if (isEscapeKey(evt)) {

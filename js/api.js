@@ -1,8 +1,6 @@
-//import { showErrorMessage } from './modal-form/validation';
-
 const BASE_URL = 'https://31.javascript.htmlacademy.pro/';
 const Route = {
-  GET_DATA: 'kekstagram/data',
+  GET_DATA: 'kekstagram/data/',
   SEND_DATA: 'kekstagram/',
 };
 
@@ -26,7 +24,6 @@ const load = (route, method = Method.GET, body = null) =>
     })
     .catch(() => {
       throw new Error(ErrorText[method]);
-      //showErrorMessage(error.message);
     });
 
 const getData = () => load(Route.GET_DATA);
