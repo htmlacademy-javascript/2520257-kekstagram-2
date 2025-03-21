@@ -1,3 +1,7 @@
+// Время отображения сообщения об ошибке
+
+const REMOVE_MESSAGE_TIMEOUT = 5000; // 5 секунд
+
 // Функция для проверки и вывода шаблона
 
 const getTemplate = (id) => {
@@ -36,23 +40,21 @@ function debounce (callback, timeoutDelay = 500) {
   };
 }
 
-// Устранение задержки между кадрами
-
-function throttle (callback, delayBetweenFrames) {
-  let lastTime = 0;
-
-  return (...rest) => {
-    const now = new Date();
-
-    if (now - lastTime >= delayBetweenFrames) {
-      callback.apply(this, rest);
-      lastTime = now;
-    }
-  };
-}
-
-// Кнопка esc
+// Проверка нажатия на ESC
 
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
-export { getTemplate, isEscapeKey, numDecline, debounce, throttle };
+// Показ окна об ошибке с задержкой 5 секунд
+
+const showDataError = () => {
+  const errorTemplate = getTemplate('#data-error');
+  const errorModal = errorTemplate.cloneNode(true);
+
+  document.body.append(errorModal);
+
+  setTimeout(() => {
+    errorModal.remove();
+  }, REMOVE_MESSAGE_TIMEOUT);
+};
+
+export { getTemplate, isEscapeKey, numDecline, debounce, showDataError};

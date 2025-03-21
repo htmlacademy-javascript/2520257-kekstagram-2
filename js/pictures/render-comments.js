@@ -1,10 +1,13 @@
-//Колличество комментарией добавляемое по кнопке
+// Колличество комментарией добавляемое по кнопке
 
 const COMMENTS_COUNT = 5;
 
-//Количество загруженных коментариев
+// Текущее значение показанных коментариев
 
 let commentsShown = 0;
+
+// Массив загруженных коментариев
+
 let commentsData = [];
 
 // Элементы комментариев и картинки
@@ -16,12 +19,14 @@ const socialCommentsCount = bigPicture.querySelector('.social__comment-count');
 const socialCommentsLoader = bigPicture.querySelector('.comments-loader');
 
 
-//Наполнение для полноэкранных изображений
+// Наполнение для полноэкранных изображений
 
 const renderComments = () => {
   const socialCommentsFragment = document.createDocumentFragment();
   const newComments = commentsData.slice(commentsShown, commentsShown + COMMENTS_COUNT);
   const newCommentsLength = newComments.length + commentsShown;
+
+  // Создание и добавление новых комментариев
 
   newComments.forEach(({avatar, name, message}) => {
     const commentElement = socialCommentsItem.cloneNode(true);
@@ -34,6 +39,8 @@ const renderComments = () => {
   });
 
   socialCommentsList.appendChild(socialCommentsFragment);
+
+  // Обновляем счетчик
 
   socialCommentsCount.firstChild.textContent = newCommentsLength;
   socialCommentsCount.querySelector('.social__comment-total-count').textContent = commentsData.length;

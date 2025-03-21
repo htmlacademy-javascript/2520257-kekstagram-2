@@ -1,11 +1,13 @@
 import { debounce } from '../utils/dom';
 import { renderThumbnails } from './thumbnails';
 
-const imageFilters = document.querySelector('.img-filters');
-const filterButtons = imageFilters.querySelectorAll('.img-filters__button');
+// Константы
 
 const RERENDER_DELAY = 500;
 const RANDOM_IMAGES_NUMBER = 10;
+const ACTIVE_BUTTON_CLASS = 'img-filters__button--active';
+
+// Типы фильтров
 
 const Filter = {
   DEFAULT: 'filter-default',
@@ -13,8 +15,15 @@ const Filter = {
   DISCUSSED: 'filter-discussed'
 };
 
+// Массив миниатюр и текущий фильтр
+
 let pictures = [];
 let currentFilter = Filter.DEFAULT;
+
+// Элементы фильтров
+
+const imageFilters = document.querySelector('.img-filters');
+const filterButtons = imageFilters.querySelectorAll('.img-filters__button');
 
 // Функция сортировки по умолчанию
 
@@ -23,15 +32,16 @@ const sortDefault = (images) => images.slice();
 // Функция сортировки случайных изображений
 
 const sortRandom = (images) => {
-  const shuffledImages = images.slice().sort(() => Math.random() - 0.5);
-  return shuffledImages.slice(0, RANDOM_IMAGES_NUMBER);
+  const shuffledImages = images.slice().sort(() => 0.5 - Math.random()).slice(0, RANDOM_IMAGES_NUMBER);
+
+  return shuffledImages.sort((a, b) => a.id - b.id);
 };
 
 // Функция сортировки по кол-ву комменатриев
 
 const sortDiscussed = (images) => images.slice().sort((a, b) => b.comments.length - a.comments.length);
 
-// Функция для изменения сортировки
+// Функция для применения сортировки
 
 const applyFilter = (images, filter) => {
   switch (filter) {
@@ -44,7 +54,7 @@ const applyFilter = (images, filter) => {
   }
 };
 
-// Функция для обновления отображения изображений
+// Функция для обновления отображения изображений с устранением дребезга
 
 const updateImages = debounce(() => {
   const filteredImages = applyFilter(pictures, currentFilter);
@@ -53,10 +63,13 @@ const updateImages = debounce(() => {
 
 // Обработчик изменения фильтра
 
-const onFilterChange = (evt) => {
+const onButtonClick = (evt) => {
   const selectedButton = evt.target;
-  filterButtons.forEach((button) => button.classList.remove('img-filters__button--active'));
-  selectedButton.classList.add('img-filters__button--active');
+  if (selectedButton.classList.contains(ACTIVE_BUTTON_CLASS)) {
+    return;
+  }
+  filterButtons.forEach((button) => button.classList.remove(ACTIVE_BUTTON_CLASS));
+  selectedButton.classList.add(ACTIVE_BUTTON_CLASS);
   currentFilter = selectedButton.id;
   updateImages();
 };
@@ -68,7 +81,7 @@ const renderFilters = (picturesData) => {
   imageFilters.classList.remove('img-filters--inactive');
 
   filterButtons.forEach((button) => {
-    button.addEventListener('click', onFilterChange);
+    button.addEventListener('click', onButtonClick);
   });
   updateImages();
 };

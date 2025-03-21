@@ -1,13 +1,6 @@
-const uploadForm = document.querySelector('.img-upload__form');
-const uploadImage = uploadForm.querySelector('.img-upload__preview img');
-const effectLevelField = uploadForm.querySelector('.img-upload__effect-level');
-const effectLevelValue = effectLevelField.querySelector('.effect-level__value');
-const effectSlider = effectLevelField.querySelector('.effect-level__slider');
-
 // Фильтр по умолчанию
 
 const DEFAULT_EFFECT = 'none';
-let currentEffect = DEFAULT_EFFECT;
 
 // массив Фильтров
 
@@ -19,6 +12,18 @@ const effects = {
   phobos: { filter: 'blur', min: 0, max: 3, step: 0.1, unit: 'px' },
   heat: { filter: 'brightness', min: 1, max: 3, step: 0.1, unit: '' }
 };
+
+// Элементы управления слайдером
+
+const uploadForm = document.querySelector('.img-upload__form');
+const uploadImage = uploadForm.querySelector('.img-upload__preview img');
+const effectLevelField = uploadForm.querySelector('.img-upload__effect-level');
+const effectLevelValue = effectLevelField.querySelector('.effect-level__value');
+const effectSlider = effectLevelField.querySelector('.effect-level__slider');
+
+// Текущее значение эффекта
+
+let currentEffect = DEFAULT_EFFECT;
 
 // Создаем слайдер
 
@@ -42,10 +47,8 @@ const slider = effectSlider.noUiSlider;
 
 const applyEffect = (effect, value) => {
   const filter = effects[effect];
-
   uploadImage.style.filter = `${filter.filter}(${value}${filter.unit})`;
 };
-
 
 // Обновляем слайдер и применяем эффект
 
@@ -68,7 +71,7 @@ const updateEffect = (effect) => {
   }
 };
 
-// Сбрасываем слайдер
+// Сбрасываем эффекты к значениям по умолчанию
 
 const resetEffects = () => {
   uploadImage.style.filter = 'none';
@@ -92,7 +95,7 @@ const resetEffects = () => {
 
 // Обработчик изменения радио-кнопок
 
-const onFormUpdate = (evt) => {
+const onUploadFormChange = (evt) => {
   if (evt.target.classList.contains('effects__radio')) {
     currentEffect = evt.target.value;
     updateEffect(currentEffect);
@@ -111,7 +114,7 @@ const onSliderUpdate = () => {
 // Инициализация
 
 effectLevelField.classList.add('hidden');
-uploadForm.addEventListener('change', onFormUpdate);
+uploadForm.addEventListener('change', onUploadFormChange);
 slider.on('update', onSliderUpdate);
 
 export { resetEffects };

@@ -1,6 +1,8 @@
 import { isEscapeKey } from '../utils/dom.js';
 import { showComments, clearComments } from './render-comments.js';
 
+// Элементы
+
 const bigPicture = document.querySelector('.big-picture');
 const bigPictureCancel = bigPicture.querySelector('.big-picture__cancel');
 const bigPictureImg = bigPicture.querySelector('.big-picture__img img');
@@ -17,7 +19,7 @@ const onDocumentKeydown = (evt) => {
   }
 };
 
-const onBigPictureClick = () => {
+const onBigPictureCancelClick = () => {
   closeBigPicture();
 };
 
@@ -28,7 +30,7 @@ const openBigPicture = () => {
   document.body.classList.add('modal-open');
 
   document.addEventListener('keydown', onDocumentKeydown);
-  bigPictureCancel.addEventListener('click', onBigPictureClick, {once: true});
+  bigPictureCancel.addEventListener('click', onBigPictureCancelClick , {once: true});
 };
 
 // Ищем картинку среди миниатюр
