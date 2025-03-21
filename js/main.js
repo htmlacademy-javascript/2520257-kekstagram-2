@@ -8,7 +8,6 @@ import './modal-form/upload-form.js';
 import './modal-form/scale-control.js';
 import './modal-form/validation.js';
 
-
 // Получение изображений с сервера
 
 const loadDataFromServer = () => {

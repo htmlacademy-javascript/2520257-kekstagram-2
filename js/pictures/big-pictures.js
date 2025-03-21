@@ -19,7 +19,7 @@ const onDocumentKeydown = (evt) => {
   }
 };
 
-const onBigPictureClick = () => {
+const onBigPictureCancelClick = () => {
   closeBigPicture();
 };
 
@@ -30,7 +30,7 @@ const openBigPicture = () => {
   document.body.classList.add('modal-open');
 
   document.addEventListener('keydown', onDocumentKeydown);
-  bigPictureCancel.addEventListener('click', onBigPictureClick, {once: true});
+  bigPictureCancel.addEventListener('click', onBigPictureCancelClick , {once: true});
 };
 
 // Ищем картинку среди миниатюр

@@ -43,14 +43,12 @@ const onDecreaseButtonClick = () => {
   }
 };
 
-
 // Сброс масштаба
 
 const resetScale = () => {
   currentValue = MAX_SCALE;
   updateScale();
 };
-
 
 // Добавляем обработчики для кнопок
 

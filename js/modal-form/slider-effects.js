@@ -47,10 +47,8 @@ const slider = effectSlider.noUiSlider;
 
 const applyEffect = (effect, value) => {
   const filter = effects[effect];
-
   uploadImage.style.filter = `${filter.filter}(${value}${filter.unit})`;
 };
-
 
 // Обновляем слайдер и применяем эффект
 
@@ -73,7 +71,7 @@ const updateEffect = (effect) => {
   }
 };
 
-// Сбрасываем слайдер
+// Сбрасываем эффекты к значениям по умолчанию
 
 const resetEffects = () => {
   uploadImage.style.filter = 'none';
@@ -97,7 +95,7 @@ const resetEffects = () => {
 
 // Обработчик изменения радио-кнопок
 
-const onFormUpdate = (evt) => {
+const onUploadFormChange = (evt) => {
   if (evt.target.classList.contains('effects__radio')) {
     currentEffect = evt.target.value;
     updateEffect(currentEffect);
@@ -116,7 +114,7 @@ const onSliderUpdate = () => {
 // Инициализация
 
 effectLevelField.classList.add('hidden');
-uploadForm.addEventListener('change', onFormUpdate);
+uploadForm.addEventListener('change', onUploadFormChange);
 slider.on('update', onSliderUpdate);
 
 export { resetEffects };

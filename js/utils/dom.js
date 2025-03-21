@@ -1,4 +1,6 @@
-const REMOVE_MESSAGE_TIMEOUT = 5000;
+// Время отображения сообщения об ошибке
+
+const REMOVE_MESSAGE_TIMEOUT = 5000; // 5 секунд
 
 // Функция для проверки и вывода шаблона
 
@@ -38,22 +40,7 @@ function debounce (callback, timeoutDelay = 500) {
   };
 }
 
-// Устранение задержки между кадрами
-
-// function throttle (callback, delayBetweenFrames) {
-//   let lastTime = 0;
-
-//   return (...rest) => {
-//     const now = new Date();
-
-//     if (now - lastTime >= delayBetweenFrames) {
-//       callback.apply(this, rest);
-//       lastTime = now;
-//     }
-//   };
-// }
-
-// Кнопка esc
+// Проверка нажатия на ESC
 
 const isEscapeKey = (evt) => evt.key === 'Escape';
 

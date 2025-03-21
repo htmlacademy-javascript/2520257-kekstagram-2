@@ -60,17 +60,20 @@ const showMessage = (message) => {
   document.addEventListener('click', onOverlayClick);
 };
 
+// Блокирует кнопку отправки формы
 const blockSubmitButton = () => {
   submitButton.disabled = true;
   submitButton.textContent = SubmitButtonText.SENDING;
 };
+
+// Разблокирует кнопку отправки формы
 
 const unblockSubmitButton = () => {
   submitButton.disabled = false;
   submitButton.textContent = SubmitButtonText.IDLE;
 };
 
-// закрытие формы
+// Обработчик события нажатия клавиши Esc
 
 const onUploadFormKeydown = (evt) => {
   if (isEscapeKey(evt)) {
@@ -86,9 +89,13 @@ const onUploadFormKeydown = (evt) => {
   }
 };
 
+// Обработчик клика по кнопке закрытия формы
+
 const onUploadFormCancelClick = () => {
   closeUploadForm ();
 };
+
+// Закрывает форму загрузки изображения
 
 function closeUploadForm () {
   resetEffects();
@@ -100,7 +107,7 @@ function closeUploadForm () {
   uploadForm.reset();
 }
 
-// Открытие формы загрузки изображения
+// Открывает форму загрузки изображения
 
 const openUploadForm = () => {
   uploadButton.addEventListener('change', () => {
@@ -124,7 +131,7 @@ const onSendDataError = () => {
   showMessage(errorTemplate);
 };
 
-const onFormSubmit = (evt) => {
+const onUploadFormSubmit = (evt) => {
   evt.preventDefault();
 
   const isValid = pristine.validate();
@@ -138,12 +145,9 @@ const onFormSubmit = (evt) => {
   }
 };
 
-
 // Добавление обработчика события отправки формы
 
-uploadForm.addEventListener('submit', onFormSubmit);
+uploadForm.addEventListener('submit', onUploadFormSubmit);
 
 openUploadForm();
-
-export { closeUploadForm };
 

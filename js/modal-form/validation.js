@@ -85,17 +85,15 @@ pristine.addValidator(commentInput, (value) => value.length <= COMMENT_MAX_LENGT
 
 pristine.addValidator(hashtagInput, isHashtagsValid, error, false);
 
+// Добавляет обработчики на комментарии и хэштеги
 
-hashtagInput.addEventListener('keydown', (evt) => {
+const preventEscapePropagation = (evt) => {
   if (isEscapeKey(evt)) {
     evt.stopPropagation();
   }
-});
+};
 
-commentInput.addEventListener('keydown', (evt) => {
-  if (isEscapeKey(evt)) {
-    evt.stopPropagation();
-  }
-});
+hashtagInput.addEventListener('keydown', preventEscapePropagation);
+commentInput.addEventListener('keydown', preventEscapePropagation);
 
 export { pristine };
