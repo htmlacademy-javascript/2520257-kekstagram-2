@@ -11,7 +11,7 @@ const COMMENT_MAX_LENGTH = 140;
 
 let errorText = '';
 
-const error = () => errorText;
+const getErrorText = () => errorText;
 
 // Элементы управления формы
 
@@ -83,17 +83,24 @@ const pristine = new Pristine(uploadForm, {
 
 pristine.addValidator(commentInput, (value) => value.length <= COMMENT_MAX_LENGTH, `Длина комментария не должна превышать ${COMMENT_MAX_LENGTH} символов`);
 
-pristine.addValidator(hashtagInput, isHashtagsValid, error, false);
+pristine.addValidator(hashtagInput, isHashtagsValid, getErrorText, false);
 
-// Добавляет обработчики на комментарии и хэштеги
+// Обработчики для предотвращения закрытия формы при нажатии Escape
 
-const preventEscapePropagation = (evt) => {
+const onHashtagInputKeydown = (evt) => {
   if (isEscapeKey(evt)) {
     evt.stopPropagation();
   }
 };
 
-hashtagInput.addEventListener('keydown', preventEscapePropagation);
-commentInput.addEventListener('keydown', preventEscapePropagation);
+const onCommentInputKeydown = (evt) => {
+  if (isEscapeKey(evt)) {
+    evt.stopPropagation();
+  }
+};
+
+
+hashtagInput.addEventListener('keydown', onHashtagInputKeydown);
+commentInput.addEventListener('keydown', onCommentInputKeydown);
 
 export { pristine };
