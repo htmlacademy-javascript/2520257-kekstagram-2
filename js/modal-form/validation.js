@@ -99,7 +99,6 @@ const onCommentInputKeydown = (evt) => {
   }
 };
 
-
 hashtagInput.addEventListener('keydown', onHashtagInputKeydown);
 commentInput.addEventListener('keydown', onCommentInputKeydown);
 
