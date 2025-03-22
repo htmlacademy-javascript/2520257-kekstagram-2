@@ -28,36 +28,36 @@ const isHashtagsValid = (value) => {
   if (inputText.length === 0) {
     return true;
   }
-  const inputArray = inputText.split(/\s+/);
+  const inputArrays = inputText.split(/\s+/);
   const errors = [
     {
-      check: inputArray.some((item) => item === '#'),
+      check: inputArrays.some((item) => item === '#'),
       error: 'Хештег не может состоять только из одной решетки',
     },
     {
-      check: inputArray.some((item) => item.slice(1).includes('#')),
+      check: inputArrays.some((item) => item.slice(1).includes('#')),
       error: 'Хештеги разделяются пробелами',
     },
     {
-      check: inputArray.some((item) => item[0] !== '#'),
+      check: inputArrays.some((item) => item[0] !== '#'),
       error: 'Хештег должен начинаться с символа \'#\'',
     },
     {
-      check: inputArray.some((item, num, array) => array.includes(item, num + 1)),
+      check: inputArrays.some((item, num, arrays) => arrays.includes(item, num + 1)),
       error: 'Хештеги не должны повторяться',
     },
     {
-      check: inputArray.some((item) => item.length > HASHTAG_MAX_SYMBOLS),
+      check: inputArrays.some((item) => item.length > HASHTAG_MAX_SYMBOLS),
       error: `Хештег не может быть больше ${HASHTAG_MAX_SYMBOLS} символов, включая символ решётки`,
     },
     {
-      check: inputArray.length > HASHTAG_MAX_NUMBER,
+      check: inputArrays.length > HASHTAG_MAX_NUMBER,
       error: `Нельзя указать больше ${HASHTAG_MAX_NUMBER} ${numDecline(
         HASHTAG_MAX_NUMBER, 'хештега', 'хештегов', 'хештегов'
       )}, `
     },
     {
-      check: inputArray.some((item) => !HASHTAG_VALID_SYMBOLS.test(item)),
+      check: inputArrays.some((item) => !HASHTAG_VALID_SYMBOLS.test(item)),
       error: 'Хэштег содержит недопустимые символы',
     },
   ];
